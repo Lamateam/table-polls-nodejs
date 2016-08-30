@@ -1,0 +1,14 @@
+.row
+  .col-md-12.col-sm-12.col-xs-12
+    .x_panel
+      .x_title
+        h2 Регистрация пользователя
+        .clearfix
+      .x_content
+        br
+        form.form-horizontal.form-label-left(name="InviteForm")
+          .form-group
+            input.form-control(type="text", placeholder="Введите e-mail пользователя", ng-model="AddUserController.data.mail", required)
+          .form-group
+            .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+              .btn.btn-success(ng-click="AddUserController.invite(InviteForm)") Отправить приглашение в систему

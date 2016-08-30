@@ -1,0 +1,33 @@
+{
+  "name": "tablet-polls",
+  "description": "heyla-backend",
+  "main": "server.coffee",
+  "authors": [
+    "Nikita Korovin"
+  ],
+  "license": "BSD-2-Clause",
+  "homepage": "https://github.com/Lamateam/table-polls-nodejs",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.0",
+    "jquery-knob": "^1.2.13",
+    "jquery-ui": "^1.12.0",
+    "jquery-mousewheel": "^3.1.13",
+    "malihu-custom-scrollbar-plugin": "^3.1.5",
+    "requirejs": "^2.2.0",
+    "gentelella": "^1.3.0",
+    "font-awesome": "^4.6.3",
+    "bootstrap": "^3.3.7",
+    "sweetalert": "^1.1.3",
+    "angular": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "angular-resource": "^1.5.8",
+    "ng-dialog": "^0.6.4"
+  }
+}

@@ -1,0 +1,60 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+
+    script(type="text/javascript")
+      | window.currentPage = 'profile'
+    script(type="text/ng-template", id="/templates/home.html")
+      include templates/profile/home.jade
+    script(type="text/ng-template", id="/templates/add_user.html")
+      include templates/profile/add_user.jade
+    
+    script(type="text/javascript", data-main="/static/js/admin.js", src="/static/bower/requirejs/require.js")
+
+    link(rel="stylesheet", href="/static/css/style.css")
+  body.nav-md
+    .container.body(id="main")
+  
+      .main_container
+        .col-md-3.left_col
+          .left_col.scroll-view
+            .navbar.nav_title(style={border: 0})
+            .clearfix
+            .main_menu_side.hidden-print.main_menu
+              .menu_section.active
+                ul.nav.side-menu
+                  li
+                    a(dropdown-menu)
+                      i.fa.fa-home 
+                      | Основное 
+                      span.fa.fa-chevron-down
+                    ul.nav.child_menu
+                      li
+                        a(href="#") На главную
+                      li
+                        a(href="#add_user") Добавить пользователя
+
+
+        .top_nav(ng-controller="TopController as TopController")
+          .nav_menu
+            nav(role="navigation")
+              .nav.toggle
+                a(id="menu_toggle")
+                  i.fa.fa-bars
+
+              ul.nav.navbar-nav.navbar-right
+                li(uib-dropdown)
+                  a.user-profile.dropdown-toggle(uib-dropdown-toggle, id="top-dropdown") 
+                    | Профиль 
+                    span.fa.fa-angle-down
+                  ul.dropdown-menu.dropdown-usermenu.pull-right(uib-dropdown-menu, aria-labelledby="top-dropdown", style={width: '120px'})
+                    li
+                      a(href="javascript:void(0);", ng-click="TopController.logout()")
+                        i.fa.fa-sign-out.pull-right
+                        | Выход
+
+        .right_col(full-height, ng-view)
+          .loader-wrapper
+            .loader

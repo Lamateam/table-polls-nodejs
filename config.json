@@ -1,0 +1,21 @@
+{
+  "port": 3001,
+  "languages": [ "russian", "english" ],
+  "jade": {
+    "encoding": "utf-8",
+    "styles": [ "/static/css/style.css" ],
+    "scripts": [ "/static/require.js", "/static/admin.js" ]
+  },
+  "session": {
+    "secret": "fpjfpwklef[wefkw['"
+  },
+  "connector": {
+    "dialect": "mysql",
+    "connection": {
+      "host": "localhost",
+      "user": "root",
+      "password": "as210100",
+      "database": "tablet_polls"
+    }
+  }
+}

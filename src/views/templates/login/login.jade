@@ -1,0 +1,14 @@
+.loader-wrapper(ng-if="LoginController.loading")
+  .loader
+.login_wrapper
+  .animate.form.login_form
+    section.login_content
+      form(name="LoginForm")
+        h1 Вход
+        div
+          input(type="text", class="form-control", placeholder="Логин", required, ng-model="LoginController.data.login", autocomplete="off")
+        div
+          input(type="password", class="form-control", placeholder="Пароль", required, ng-model="LoginController.data.password", autocomplete="off")
+        div 
+          .btn.btn-default.submit(ng-click="LoginController.login(LoginForm)") Войти
+        .clearfix
