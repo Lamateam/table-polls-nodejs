@@ -15,7 +15,11 @@ html
 
     link(rel="stylesheet", href="/static/css/style.css")
   body.nav-md
-    .container.body(id="main")
+    div(ng-controller="LoadingController as LoadingController")
+      .loader-wrapper(ng-if="LoadingController.loading")
+        .loader
+
+    .container.body(id="main", style={display: 'none'}, ng-cloak, show-on-loaded)
   
       .main_container
         .col-md-3.left_col
@@ -23,18 +27,7 @@ html
             .navbar.nav_title(style={border: 0})
             .clearfix
             .main_menu_side.hidden-print.main_menu
-              .menu_section.active
-                ul.nav.side-menu
-                  li
-                    a(dropdown-menu)
-                      i.fa.fa-home 
-                      | Основное 
-                      span.fa.fa-chevron-down
-                    ul.nav.child_menu
-                      li
-                        a(href="#") На главную
-                      li
-                        a(href="#add_user") Добавить пользователя
+              include ./includes/profile/left_menu.jade
 
 
         .top_nav(ng-controller="TopController as TopController")
@@ -55,6 +48,7 @@ html
                         i.fa.fa-sign-out.pull-right
                         | Выход
 
-        .right_col(full-height, ng-view)
-          .loader-wrapper
-            .loader
+        .right_col(full-height)
+          div(ng-view)
+            .loader-wrapper
+              .loader

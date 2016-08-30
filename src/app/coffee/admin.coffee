@@ -5,6 +5,7 @@ require.config
     "angular-route": "../bower/angular-route/angular-route.min"
     "angular-resource": "../bower/angular-resource/angular-resource.min"
     "angular-bootstrap": "../bower/angular-bootstrap/ui-bootstrap.min"
+    "angular-validation-match": "../bower/angular-validation-match/dist/angular-validation-match.min"
     "ng-dialog": "../bower/ng-dialog/js/ngDialog.min"
     "jquery": "../bower/jquery/dist/jquery.min"
     "jquery-ui": "../bower/jquery-ui/jquery-ui.min"
@@ -25,6 +26,8 @@ require.config
       deps: [ "jquery" ]
     "angular-bootstrap":
       deps: [ "bootstrap", "jquery" ]
+    "angular-validation-match":
+      deps: [ "angular" ]
     
 require [ window.currentPage + "/app" ], (App)->
   new App()

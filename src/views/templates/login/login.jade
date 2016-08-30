@@ -1,5 +1,6 @@
-.loader-wrapper(ng-if="LoginController.loading")
-  .loader
+div(ng-controller="LoadingController as LoadingController")
+  .loader-wrapper(ng-if="LoadingController.loading")
+    .loader
 .login_wrapper
   .animate.form.login_form
     section.login_content

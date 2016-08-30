@@ -10,6 +10,7 @@ define [
   'common/factories/errorHttpInterceptor'
   'common/services/alert'
   'common/services/users.service'
+  'common/controllers/loading'
 ], ->
   class LoginApp
     constructor: ()->

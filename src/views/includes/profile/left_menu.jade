@@ -1,0 +1,24 @@
+.menu_section.active
+  ul.nav.side-menu
+    li
+      a(dropdown-menu)
+        i.fa.fa-home 
+        | Основное 
+        span.fa.fa-chevron-down
+      ul.nav.child_menu
+        li
+          a(href="#") На главную
+        if user.login == 'admin'
+          li
+            a(href="#add_user") Добавить пользователя
+    if user.login != 'admin'
+      li
+        a(dropdown-menu)
+          i.fa.fa-home 
+          | Планшеты 
+          span.fa.fa-chevron-down
+        ul.nav.child_menu
+          li
+            a(href="#add_tablet") Добавить планшет
+          li
+            a(href="#tablets") Мои планшеты   

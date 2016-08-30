@@ -13,7 +13,10 @@ class UsersService
         params: { action: 'logout' }
       invite:
         method: "POST"
-        params: { action: 'invite' }            
+        params: { action: 'invite' }
+      password:
+        method: "POST"
+        params: { action: 'password' }
 
     @activeRequest = null
 
@@ -33,7 +36,10 @@ class UsersService
 
   invite: (data)->
     @sendAction 'invite', data
+
+  password: (data)->
+    @sendAction 'password', data
     
   cancellActiveRequest: ->
     @rootScope.$broadcast "loading", false
-    @activeRequest.$cancelRequest() if @activeRequest isnt null
+    @activeRequest.$cancelRequest() if (@activeRequest isnt null) and (typeof @activeRequest.$cancelRequest is 'function')

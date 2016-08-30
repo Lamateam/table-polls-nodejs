@@ -10,5 +10,6 @@ class AddUserController
         .invite @data
         .then (res)=>
           if res.message is undefined
-            @AlertService.success { text: 'Приглашение успешно отправлено на ящик ' + @data.mail }
+            @AlertService.success 
+              text: 'Приглашение успешно отправлено на ящик ' + @data.mail + '. Если пользователь не получил письмо, просто отправьте ему эту ссылку: ' + res.link
             @data.mail = ''

@@ -1,9 +1,8 @@
 define [ 'app' ], ->
-  angular.module('app').controller 'HomeController', [ '$rootScope', 'UsersService', 'AlertService', '$window', LoginController ]
+  angular.module('app').controller 'HomeController', [ 'UsersService', '$window', LoginController ]
 
 class LoginController
-  constructor: (@rootScope, @UsersService, @AlertService, @window)->
-    @rootScope.$on "loading", (event, data)=> @loading = data
+  constructor: (@UsersService, @window)->
   logout: ->
     @UsersService
       .logout()
