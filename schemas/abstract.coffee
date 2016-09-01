@@ -8,6 +8,7 @@ class AbstractSchema
     @isReady = false
 
     @knex.schema.hasTable(@name).then (exists)=>
+      console.log 'table ' + @name + ' exists: ' + exists
       if exists then @ready() else @knex.schema.createTable @name, (table)=>
         table.timestamps() if @isTimestamps
         table.increments() if @isIncrements
