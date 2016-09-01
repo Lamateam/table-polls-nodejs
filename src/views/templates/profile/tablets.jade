@@ -1,0 +1,16 @@
+table.table(ng-if="TabletsController.tablets != null")
+  thead
+    th ID
+    th Название
+    th Создан
+    th Ключ
+    th Действия
+  tbody
+    tr(ng-repeat="tablet in TabletsController.tablets")
+      td {[ tablet.id ]}
+      td {[ tablet.name ]}
+      td {[ tablet.created_at | formatDate:'DD.MM.YYYY HH:mm' ]}
+      td(ng-if="!tablet.is_active") {[ tablet.link ]}
+      td(ng-if="tablet.is_active") Активирован {[ tablet.updated_at | formatDate:'DD.MM.YYYY HH:mm' ]}
+      td 
+        .btn.btn-default Опросы

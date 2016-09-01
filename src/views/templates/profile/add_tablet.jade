@@ -1,0 +1,14 @@
+.row
+  .col-md-12.col-sm-12.col-xs-12
+    .x_panel
+      .x_title
+        h2 Добавление нового планшета
+        .clearfix
+      .x_content
+        br
+        form.form-horizontal.form-label-left(name="AddTabletForm")
+          .form-group
+            input.form-control(type="text", placeholder="Введите имя планшета", ng-model="AddTabletController.data.name", required)
+          .form-group
+            .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+              .btn.btn-success(ng-click="AddTabletController.create(AddTabletForm)") Добавить планшет

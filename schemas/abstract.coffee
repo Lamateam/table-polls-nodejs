@@ -25,14 +25,17 @@ class AbstractSchema
   create: (data, callback)->
     data.created_at = new Date()
     data.updated_at = new Date()
-    @knex(@name).insert(data).then(callback).catch (err)->
-      callback []
-      console.error "Error in schema! Method 'create':\n", err
+    @knex(@name).insert(data)
+      .then (err)->
+        callback null, data
+      .catch (err)->
+        callback err, null
+        console.error "Error in " + @name + " schema! Method 'create':\n", err
   list: (filters, callback)->
-    @knex.select('*').from(@name).where(filters).then((rows)->
+    @knex.select('*').from(@name).where(filters).then (rows)->
       callback null, rows
-    ).catch (err)->
+    .catch (err)->
       callback err, null
-      console.error "Error in schema! Method 'list':\n", err
+      console.error "Error in " + @name + " schema! Method 'list':\n", err
 
 module.exports = AbstractSchema

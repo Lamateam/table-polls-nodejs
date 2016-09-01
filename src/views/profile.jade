@@ -10,10 +10,19 @@ html
       include templates/profile/home.jade
     script(type="text/ng-template", id="/templates/add_user.html")
       include templates/profile/add_user.jade
+    script(type="text/ng-template", id="/templates/add_tablet.html")
+      include templates/profile/add_tablet.jade
+    script(type="text/ng-template", id="/templates/add_poll.html")
+      include templates/profile/add_poll.jade
+    script(type="text/ng-template", id="/templates/polls.html")
+      include templates/profile/polls.jade
+    script(type="text/ng-template", id="/templates/tablets.html")
+      include templates/profile/tablets.jade
     
     script(type="text/javascript", data-main="/static/js/admin.js", src="/static/bower/requirejs/require.js")
 
     link(rel="stylesheet", href="/static/css/style.css")
+    link(rel="stylesheet", href="/static/bower/jquery-ui/themes/ui-lightness/jquery-ui.css")
   body.nav-md
     div(ng-controller="LoadingController as LoadingController")
       .loader-wrapper(ng-if="LoadingController.loading")

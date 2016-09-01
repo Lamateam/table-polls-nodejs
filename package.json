@@ -42,6 +42,7 @@
     "jade-amd": "^0.2.3",
     "jade-runtime": "^2.0.0",
     "knex": "^0.11.7",
+    "moment": "^2.14.1",
     "mysql": "^2.11.1",
     "nodemailer": "^2.5.0",
     "path": "^0.12.7",

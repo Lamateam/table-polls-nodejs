@@ -24,12 +24,6 @@ module.exports = (grunt) ->
           { expand: true, cwd: 'vendor/', src: [ '**/*.*' ], dest: 'dist/' }
         ]
     concat:
-      vendor_css:
-        src: [
-          "vendor/animate.css"
-          "vendor/jquery-ui.min.css"
-        ]
-        dest: "tmp/vendor.css"
       css:
         src: [
           "bower_components/font-awesome/css/font-awesome.css"
@@ -37,7 +31,6 @@ module.exports = (grunt) ->
           "bower_components/gentelella/build/css/custom.css"
           "bower_components/sweetalert/dist/sweetalert.css"
           "bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"
-          "tmp/vendor.css"
           "tmp/style.css"
         ]
         dest: "dist/css/style.css"
@@ -73,4 +66,4 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-regex-replace'
 
   # Default task.
-  grunt.registerTask "default", [ "clean", "copy", "coffee", "stylus", "concat:vendor_css", "concat:css" ]
+  grunt.registerTask "default", [ "clean", "copy", "coffee", "stylus", "concat:css" ]

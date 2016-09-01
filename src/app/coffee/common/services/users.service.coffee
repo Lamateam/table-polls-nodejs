@@ -4,7 +4,7 @@ define [ 'app' ], ->
 class UsersService
   constructor: (@rootScope, resource, @q)->
 
-    @usersResource = resource '/api/1.0/users/:action', null, 
+    @usersResource = resource '/api/v1/users/:action', null, 
       login:
         method: "POST"
         params: { action: 'login' }

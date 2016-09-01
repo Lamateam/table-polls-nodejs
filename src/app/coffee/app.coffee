@@ -3,4 +3,4 @@ define 'app', [ 'angular' ], ->
   angular
     .module 'app', [ ]        
     .config ($interpolateProvider)->
-      $interpolateProvider.startSymbol('[[').endSymbol(']]')
+      $interpolateProvider.startSymbol('{[').endSymbol(']}')
