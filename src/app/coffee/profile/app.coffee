@@ -21,6 +21,7 @@ define [
   'common/directives/calendar'
   'common/factories/errorHttpInterceptor'
   'common/services/alert'
+  'common/services/modal'
   'common/services/users.service'
   'common/services/tablet.service'
   'common/services/polls.service'

@@ -1,0 +1,12 @@
+table.table
+  thead
+    th ID
+    th Вопрос
+    th Дата начала
+    th Дата конца
+  tbody
+    tr(ng-repeat="poll in ngDialogData.polls", ng-class="{'striked': !poll.is_active}")
+      td {[ poll.id ]}
+      td {[ poll.question ]}
+      td {[ poll.start_date | formatDate:'DD.MM.YYYY HH:mm' ]}
+      td {[ poll.end_date | formatDate:'DD.MM.YYYY HH:mm' ]}

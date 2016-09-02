@@ -24,4 +24,4 @@ class AddPollController
           .create data
           .then (res)=>
             if res.message is undefined
-              @location.url '/'
+              @location.url '/polls'

@@ -7,10 +7,12 @@ table.table(ng-if="PollsController.polls != null")
     th Создан
     th Действия
   tbody
-    tr(ng-repeat="poll in PollsController.polls")
+    tr(ng-repeat="poll in PollsController.polls", ng-class="{'striked': !poll.is_active, 'success': PollsController.isSelected(poll)}")
       td {[ poll.id ]}
       td {[ poll.question ]}
       td {[ poll.start_date | formatDate:'DD.MM.YYYY HH:mm' ]}
       td {[ poll.end_date | formatDate:'DD.MM.YYYY HH:mm' ]}
       td {[ poll.created_at | formatDate:'DD.MM.YYYY HH:mm' ]}
       td 
+        .btn.btn-success(ng-click="PollsController.disablePoll(poll)", ng-if="poll.is_active") Отключить опрос
+        .btn.btn-success(ng-click="PollsController.enablePoll(poll)", ng-if="!poll.is_active") Возобновить опрос

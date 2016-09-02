@@ -13,4 +13,4 @@ table.table(ng-if="TabletsController.tablets != null")
       td(ng-if="!tablet.is_active") {[ tablet.link ]}
       td(ng-if="tablet.is_active") Активирован {[ tablet.updated_at | formatDate:'DD.MM.YYYY HH:mm' ]}
       td 
-        .btn.btn-default Опросы
+        .btn.btn-default(ng-click="TabletsController.loadPolls(tablet.link)") Опросы

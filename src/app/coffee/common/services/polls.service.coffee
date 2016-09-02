@@ -11,6 +11,9 @@ class PollsService
       list: 
         method: 'GET'
         params: { action: '' }
+      save:
+        method: 'PUT'
+        params: { action: '' }
 
     @activeRequest = null
 
@@ -25,8 +28,11 @@ class PollsService
   create: (data)->
     @sendAction 'create', data
     
-  list: ->
-    @sendAction 'list'
+  list: (data={})->
+    @sendAction 'list', data
+
+  save: (data)->
+    @sendAction 'save', data
 
   cancellActiveRequest: ->
     @rootScope.$broadcast "loading", false

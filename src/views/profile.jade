@@ -18,11 +18,15 @@ html
       include templates/profile/polls.jade
     script(type="text/ng-template", id="/templates/tablets.html")
       include templates/profile/tablets.jade
+    script(type="text/ng-template", id="/templates/polls_modal.html")
+      include templates/profile/polls_modal.jade
     
     script(type="text/javascript", data-main="/static/js/admin.js", src="/static/bower/requirejs/require.js")
 
-    link(rel="stylesheet", href="/static/css/style.css")
     link(rel="stylesheet", href="/static/bower/jquery-ui/themes/ui-lightness/jquery-ui.css")
+    link(rel="stylesheet", href="/static/bower/ng-dialog/css/ngDialog.min.css")
+    link(rel="stylesheet", href="/static/bower/ng-dialog/css/ngDialog-theme-default.min.css")
+    link(rel="stylesheet", href="/static/css/style.css")
   body.nav-md
     div(ng-controller="LoadingController as LoadingController")
       .loader-wrapper(ng-if="LoadingController.loading")

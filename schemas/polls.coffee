@@ -8,6 +8,7 @@ class PollsSchema extends AbstractSchema
     table.string("success_text").collate "utf8_general_ci"
     table.string("answers").collate "utf8_general_ci"
     table.string("owner").collate "utf8_general_ci"
+    table.boolean('is_active').default true
     table.timestamp 'start_date'
     table.timestamp 'end_date'
 
@@ -57,9 +58,9 @@ class PollsSchema extends AbstractSchema
       .where 'start_date', '<=', today
       .then (rows)=>
         if rows.length isnt 0
-          console.log 'id: ', rows[0].poll_id
           @knex.select('*').from('polls')
             .where { id: rows[0].poll_id }
+            .where { is_active: true }
             .then (rows)->
               callback null, rows
             .catch (err)->
@@ -69,6 +70,26 @@ class PollsSchema extends AbstractSchema
           callback null, []
       .catch (err)->
         console.log 'error: ', err
+        callback err
+  listByTablet: (data, callback)->
+    @knex
+      .join 'polls', 'tabletpolls.poll_id', '=', 'polls.id'
+      .select('*').from('tabletpolls')
+      .where 'tabletpolls.tablet_link', '=', data.tablet_link
+      .where 'polls.owner', '=', data.owner
+      .then (rows)->
+        callback null, rows
+      .catch (err)->
+        callback err
+  update: (data, callback)->
+    @knex('polls')
+      .where { owner: data.owner }
+      .where { id: data.id }
+      .update data
+      .then (res)->
+        console.log res
+        callback null
+      .catch (err)->
         callback err
 
 module.exports = PollsSchema
