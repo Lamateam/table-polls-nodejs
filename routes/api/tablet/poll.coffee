@@ -14,7 +14,14 @@ exports.init = (app)->
 
   app.post "/api/v1/tablet/poll", (req, res, next)->
     req.body.answers = req.body.answers.join ', '
+    obj = 
+      answers: req.body.answers
+      tablet_link: req.body.tablet
+      poll_id: req.body.id
+      person_male: req.body.person_male
+      person_smile: req.body.person_smile
+      person_age: req.body.person_age
     app.get('connector').tabletanswers()
-      .create { answers: req.body.answers, tablet_link: req.body.tablet, poll_id: req.body.id }, (err)->
+      .create obj, (err)->
         console.log err
         res.sendStatus 200
