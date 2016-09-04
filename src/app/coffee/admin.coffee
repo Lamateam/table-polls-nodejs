@@ -11,7 +11,8 @@ require.config
     "jquery-ui": "../bower/jquery-ui/jquery-ui.min"
     "sweetalert": "../bower/sweetalert/dist/sweetalert.min"
     "bootstrap": "../bower/bootstrap/dist/js/bootstrap.min"
-    "moment": "../bower/moment/moment"
+    "chart": "../bower/chart.js/dist/Chart.min"
+    "moment": "../bower/moment/min/moment-with-locales.min"
   shim:
     "angular-route":
       deps: [ "angular" ]

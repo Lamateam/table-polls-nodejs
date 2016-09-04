@@ -19,6 +19,7 @@ define [
   'common/directives/fullHeight'
   'common/directives/showOnLoaded'
   'common/directives/calendar'
+  'common/directives/doughnut'
   'common/factories/errorHttpInterceptor'
   'common/services/alert'
   'common/services/modal'
