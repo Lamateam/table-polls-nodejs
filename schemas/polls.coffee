@@ -60,7 +60,7 @@ class PollsSchema extends AbstractSchema
           ids = [ ]
           ids.push poll.poll_id for poll in rows
           @knex.select('*').from('polls')
-            .whereIn { id: ids }
+            .whereIn 'id', ids
             .where { is_active: true }
             .then (rows)->
               callback null, rows
