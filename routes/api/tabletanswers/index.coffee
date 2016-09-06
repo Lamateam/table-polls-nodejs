@@ -6,7 +6,7 @@ exports.init = (app)->
       else if polls.length is 0
         res.sendStatus 404
       else
-        filters = { poll_id: req.query.poll_id }
+        filters = { poll_id: parseInt(req.query.poll_id, 10) }
         app.get('connector').tabletanswers().list filters, (err, answers)->
           if err isnt null
             res.status(400).send { message: err }
