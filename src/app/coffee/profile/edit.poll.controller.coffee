@@ -1,8 +1,8 @@
 define [ 'app', 'moment' ], (moment)->
-  angular.module('app').controller 'EditPollController', [ '$scope', 'TabletService', 'PollsService', 'ModalService', EditPollController ]
+  angular.module('app').controller 'EditPollController', [ '$scope', 'TabletService', 'PollsService', 'ModalService', '$route', EditPollController ]
 
 class EditPollController
-  constructor: (@scope, @TabletService, @PollsService, @ModalService)->
+  constructor: (@scope, @TabletService, @PollsService, @ModalService, @route)->
     ngDialogData = @scope.ngDialogData
     poll         = ngDialogData.poll
 
@@ -48,4 +48,6 @@ class EditPollController
           .save data
           .then (res)=>
             if res.message is undefined
+              @route.reload()
               @ModalService.closeAll()
+              
