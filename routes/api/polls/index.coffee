@@ -25,6 +25,7 @@ exports.init = (app)->
 
   app.put "/api/v1/polls", (req, res, next)->
     req.body.owner = req.session.user.login
+    req.body.answers = req.body.answers.join ', ' if typeof req.body.answers.join is 'function'
 
     app.get('connector').polls().update req.body, (err, poll)->
       console.log err

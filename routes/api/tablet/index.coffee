@@ -1,10 +1,17 @@
 exports.init = (app)->
   app.get '/api/v1/tablet', (req, res, next)->
-    app.get('connector').tablets().list { owner: req.session.user.login }, (err, tablets)->
-      if err isnt null
-        res.status(400).send { message: err }
-      else
-        res.send { tablets: tablets }
+    if req.query.poll_id is undefined
+      app.get('connector').tablets().list { owner: req.session.user.login }, (err, tablets)->
+        if err isnt null
+          res.status(400).send { message: err }
+        else
+          res.send { tablets: tablets }
+    else
+      app.get('connector').tablets().listByPoll { poll_id: req.query.poll_id, owner: req.session.user.login }, (err, tablets)->
+        if err isnt null
+          res.status(400).send { message: err }
+        else
+          res.send { tablets: tablets }
 
   app.post "/api/v1/tablet", (req, res, next)->
     req.body.owner = req.session.user.login

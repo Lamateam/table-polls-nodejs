@@ -1,0 +1,44 @@
+- var answers = [ "Отлично", "Сойдёт", "Не очень", "Ужасно" ]
+.row
+  .col-md-12.col-sm-12.col-xs-12
+    .x_panel
+      .x_title
+        h2 Редактирование опроса
+        .clearfix
+      .x_content
+        br
+        form.form-horizontal.form-label-left(name="AddPollForm")
+          .form-group
+            label.col-md-3.col-sm-3.col-xs-12 Вопрос
+            .col-md-9.col-sm-9.col-xs-12
+              input.form-control(type="text", placeholder="Введите вопрос опроса", ng-model="$ctrl.data.question", required)
+          .form-group
+            label.col-md-3.col-sm-3.col-xs-12 Варианты ответа
+            .col-md-9.col-sm-9.col-xs-12
+              for answer, i in answers
+                .checkbox
+                  label
+                    input(type="checkbox", ng-model="$ctrl.data.answers[" + i + "]", ng-true-value=i+"" ng-false-value="undefined")
+                    | #{answer}
+          .form-group
+            label.col-md-3.col-sm-3.col-xs-12 Текст при завершении отпроса
+            .col-md-9.col-sm-9.col-xs-12
+              textarea.form-control(type="text", placeholder="Текст при завершении отпроса", ng-model="$ctrl.data.success_text")
+          .form-group
+            label.col-md-3.col-sm-3.col-xs-12 Дата начала
+            .col-md-9.col-sm-9.col-xs-12
+              input.form-control(calendar, type="text", ng-model="$ctrl.data.start_date", date-format="dd.mm.yy", date-format-moment="DD.MM.YYYY", constrain-input="true", ng-pattern="/\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d/", max-date="$ctrl.data.end_date", placeholder="c")
+          .form-group
+            label.col-md-3.col-sm-3.col-xs-12 Дата окончания
+            .col-md-9.col-sm-9.col-xs-12
+              input.form-control(calendar, type="text", ng-model="$ctrl.data.end_date", date-format="dd.mm.yy", date-format-moment="DD.MM.YYYY", constrain-input="true", ng-pattern="/\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d/", min-date="$ctrl.data.start_date", placeholder="по")
+          .form-group(ng-init="$ctrl.loadTablets()")
+            label.col-md-3.col-sm-3.col-xs-12 Планшеты
+            .col-md-9.col-sm-9.col-xs-12
+              .checkbox(ng-repeat="tablet in $ctrl.tablets")
+                label
+                  input(type="checkbox", ng-model="$ctrl.data.tablets[$index]", ng-true-value="{[ tablet.link ]}" ng-false-value="undefined")
+                  | {[ tablet.name ]}
+
+          .form-group
+            .col-md-6.col-sm-6.col-xs-12.col-md-offset-3.btn.btn-success(ng-click="$ctrl.edit(AddPollForm)") Изменить опрос

@@ -5,10 +5,10 @@ AbstractSchema = require './abstract.coffee'
 class UsersSchema extends AbstractSchema
   name: "users"
   initTable: (table, callback)->
-    table.string("login").unique().collate "utf8_general_ci"
-    table.string("password").collate "utf8_general_ci"
-    table.string("salt").collate "utf8_general_ci"
-    table.string("temp").collate "utf8_general_ci"
+    table.string("login").unique().collate "utf8"
+    table.string("password").collate "utf8"
+    table.string("salt").collate "utf8"
+    table.string("temp").collate "utf8"
 
     callback()
   register: (data, callback)->

@@ -25,8 +25,8 @@ class TabletService
   create: (data)->
     @sendAction 'create', data
     
-  list: ->
-    @sendAction 'list'
+  list: (data={})->
+    @sendAction 'list', data
 
   cancellActiveRequest: ->
     @rootScope.$broadcast "loading", false

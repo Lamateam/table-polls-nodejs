@@ -4,5 +4,4 @@ define [ 'app' ], ->
 class LoadingController
   constructor: (rootScope)->
     rootScope.$on "loading", (event, data)=> 
-      console.log 'here loading: ', data
       @loading = data

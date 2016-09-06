@@ -11,6 +11,7 @@ define [
   'profile/add.user.controller'
   'profile/add.tablet.controller'
   'profile/add.poll.controller'
+  'profile/edit.poll.controller'
   'profile/polls.controller'
   'profile/tablets.controller'
   'profile/set.password.controller'

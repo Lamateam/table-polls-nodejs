@@ -17,8 +17,7 @@ class AddPollController
       data.tablets    = data.tablets.filter (el)-> el isnt undefined
       data.start_date = moment(data.start_date, 'DD.MM.YYYY').toDate()
       data.end_date   = moment(data.end_date, 'DD.MM.YYYY').toDate()
-      console.log data
-      if form.$valid && (data.answers.length > 1) && (data.tablets.length isnt 0)
+      if (data.question.length > 0) && (data.answers.length > 1) && (data.tablets.length isnt 0)
         console.log data
         @PollsService
           .create data

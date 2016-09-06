@@ -4,10 +4,10 @@ moment         = require 'moment'
 class PollsSchema extends AbstractSchema
   name: "polls"
   initTable: (table, callback)->
-    table.string("question").collate "utf8_general_ci"
-    table.string("success_text").collate "utf8_general_ci"
-    table.string("answers").collate "utf8_general_ci"
-    table.string("owner").collate "utf8_general_ci"
+    table.string("question").collate "utf8"
+    table.string("success_text").collate "utf8"
+    table.string("answers").collate "utf8"
+    table.string("owner").collate "utf8"
     table.boolean('is_active').default true
     table.timestamp 'start_date'
     table.timestamp 'end_date'
@@ -51,10 +51,10 @@ class PollsSchema extends AbstractSchema
             callback err
   getActual: (link, callback)->
     today     = new Date()
-    prev_date = moment().add(1, 'days').toDate()
+    prev_date = moment().add(-1, 'days').toDate()
     @knex.select('*').from('tabletpolls')
       .where 'tablet_link', link
-      .where 'end_date', '>=', prev_date
+      .where 'end_date', '>=', today
       .where 'start_date', '<=', today
       .then (rows)=>
         if rows.length isnt 0
@@ -82,14 +82,56 @@ class PollsSchema extends AbstractSchema
       .catch (err)->
         callback err
   update: (data, callback)->
-    @knex('polls')
-      .where { owner: data.owner }
-      .where { id: data.id }
-      .update data
-      .then (res)->
-        console.log res
-        callback null
-      .catch (err)->
-        callback err
+    if data.tablets isnt undefined
+      @knex.select('*').from('tablets').whereIn('link', data.tablets).then (rows)=>
+        is_owner = true
+        for row in rows
+          if row.owner isnt data.owner
+            callback 'Вы не являетесь владельцем одного или нескольких планшетов'
+            is_owner = false
+
+        if is_owner
+          @knex('polls')
+            .where { owner: data.owner }
+            .where { id: data.id }
+            .update 
+              question: data.question
+              success_text: data.success_text
+              answers: data.answers
+              start_date: new Date data.start_date
+              end_date: new Date data.end_date
+              updated_at: new Date()
+            .then (res)=>
+              @knex('tabletpolls')
+                .del()
+                .where { poll_id: data.id }
+                .then =>
+                  for tablet in data.tablets
+                    @knex('tabletpolls')
+                      .insert 
+                        tablet_link: tablet
+                        poll_id: data.id
+                        start_date: new Date data.start_date
+                        end_date: new Date data.end_date
+                        created_at: new Date()
+                        updated_at: new Date()
+                      .then (id)->
+                        console.log id
+                      .catch (err)->
+                        console.log err
+                  callback null
+                .catch (err)->
+                  console.log err
+            .catch (err)->
+              callback err
+    else
+      @knex('polls')
+        .where { owner: data.owner }
+        .where { id: data.id }
+        .update data
+        .then ->
+          callback null
+        .catch (err)->
+          callback err
 
 module.exports = PollsSchema

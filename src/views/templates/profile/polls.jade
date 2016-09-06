@@ -16,3 +16,4 @@ table.table(ng-if="PollsController.polls != null")
       td 
         .btn.btn-success(ng-click="PollsController.disablePoll(poll)", ng-if="poll.is_active") Отключить опрос
         .btn.btn-success(ng-click="PollsController.enablePoll(poll)", ng-if="!poll.is_active") Возобновить опрос
+        .btn.btn-default(ng-click="PollsController.edit(poll)") Редактировать опрос

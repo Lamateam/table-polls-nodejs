@@ -5,9 +5,9 @@ class TabletsSchema extends AbstractSchema
   initTable: (table, callback)->
     table.boolean("is_active").default false
     table.boolean("is_online").default false
-    table.string("link").collate "utf8_general_ci"
-    table.string("name").collate "utf8_general_ci"
-    table.string("owner").collate "utf8_general_ci"
+    table.string("link").collate "utf8"
+    table.string("name").collate "utf8"
+    table.string("owner").collate "utf8"
 
     callback()
   link: (link, callback)->
@@ -19,5 +19,16 @@ class TabletsSchema extends AbstractSchema
         callback null, res
       .catch (err)->
         callback err, null
+  listByPoll: (data, callback)->
+    console.log data
+    @knex
+      .join 'tablets', 'tabletpolls.tablet_link', '=', 'tablets.link'
+      .select('*').from('tabletpolls')
+      .where 'tabletpolls.poll_id', '=', parseInt(data.poll_id, 10)
+      .where 'tablets.owner', '=', data.owner
+      .then (rows)->
+        callback null, rows
+      .catch (err)->
+        callback err
 
 module.exports = TabletsSchema
