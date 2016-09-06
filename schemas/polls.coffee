@@ -51,7 +51,6 @@ class PollsSchema extends AbstractSchema
             callback err
   getActual: (link, callback)->
     today     = new Date()
-    prev_date = moment().add(-1, 'days').toDate()
     @knex.select('*').from('tabletpolls')
       .where 'tablet_link', link
       .where 'end_date', '>=', today

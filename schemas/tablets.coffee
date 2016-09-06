@@ -20,7 +20,6 @@ class TabletsSchema extends AbstractSchema
       .catch (err)->
         callback err, null
   listByPoll: (data, callback)->
-    console.log data
     @knex
       .join 'tablets', 'tabletpolls.tablet_link', '=', 'tablets.link'
       .select('*').from('tabletpolls')

@@ -27,6 +27,7 @@ define [
   'common/services/users.service'
   'common/services/tablet.service'
   'common/services/polls.service'
+  'common/services/answers.service'
   'common/controllers/loading'
   'common/filters/formatDate'
 ], ->
