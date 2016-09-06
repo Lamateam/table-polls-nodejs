@@ -57,8 +57,10 @@ class PollsSchema extends AbstractSchema
       .where 'start_date', '<=', today
       .then (rows)=>
         if rows.length isnt 0
+          ids = [ ]
+          ids.push poll.poll_id for poll in rows
           @knex.select('*').from('polls')
-            .where { id: rows[0].poll_id }
+            .whereIn { id: ids }
             .where { is_active: true }
             .then (rows)->
               callback null, rows

@@ -28,7 +28,6 @@ class EditPollController
                 @data.tablets.push parseInt(a_tablet.link, 10)
                 has = true
             @data.tablets.push undefined if !has
-          console.log @data.tablets
           @tablets = res.tablets
   isTabletChecked: (link, hash)->
     for element in hash
