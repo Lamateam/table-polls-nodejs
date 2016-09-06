@@ -9,6 +9,7 @@ exports.init = (app)->
         else
           poll = polls[0]
           poll.answers = poll.answers.split ', '
+          console.log 'here recieve poll: ', poll
           res.send poll
 
 

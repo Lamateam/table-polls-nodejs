@@ -9,4 +9,5 @@ hash =
   '7': { url: '/static/images/sad.png', text: 'Pilnībā neapmierināts/ -a' }
 exports.init = (app)->
   app.get "/api/v1/tablet/answer", (req, res, next)->
+    console.log 'here recieve answer: ', req.query.id, hash[req.query.id]
     res.send hash[req.query.id]
