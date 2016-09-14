@@ -8,17 +8,18 @@ if user.login == 'admin'
         | И что-то ещё точно будет, пока не придумал что :)
 else
   h1 Добро пожаловать в личный кабинет!
-
-  h3 Статистика ответов
-  .row
-    .form-group.col-md-3.col-sm-3.col-xs-12
-      select.form-control(ng-model="HomeController.data.poll_id", ng-change="HomeController.loadStat()")
-        for poll in polls
-          option(value=poll.id)= poll.question
-    .form-group.col-md-3.col-sm-3.col-xs-12
-      input.form-control(calendar, type="text", ng-model="HomeController.data.start_date", date-format="dd.mm.yy", date-format-moment="DD.MM.YYYY", constrain-input="true", ng-pattern="/\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d/", max-date="HomeController.data.end_date", placeholder="c", ng-change="HomeController.loadStat()")
-    .form-group.col-md-3.col-sm-3.col-xs-12
-      input.form-control(calendar, type="text", ng-model="HomeController.data.end_date", date-format="dd.mm.yy", date-format-moment="DD.MM.YYYY", constrain-input="true", ng-pattern="/\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d/", min-date="HomeController.data.start_date", placeholder="по", ng-change="HomeController.loadStat()")
+  
+  if polls
+    h3 Статистика ответов
+    .row
+      .form-group.col-md-3.col-sm-3.col-xs-12
+        select.form-control(ng-model="HomeController.data.poll_id", ng-change="HomeController.loadStat()")
+          for poll in polls
+            option(value=poll.id)= poll.question
+      .form-group.col-md-3.col-sm-3.col-xs-12
+        input.form-control(calendar, type="text", ng-model="HomeController.data.start_date", date-format="dd.mm.yy", date-format-moment="DD.MM.YYYY", constrain-input="true", ng-pattern="/\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d/", max-date="HomeController.data.end_date", placeholder="c", ng-change="HomeController.loadStat()")
+      .form-group.col-md-3.col-sm-3.col-xs-12
+        input.form-control(calendar, type="text", ng-model="HomeController.data.end_date", date-format="dd.mm.yy", date-format-moment="DD.MM.YYYY", constrain-input="true", ng-pattern="/\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d/", min-date="HomeController.data.start_date", placeholder="по", ng-change="HomeController.loadStat()")
 
   .row
     .col-md-4.col-sm-4.col-xs-12
