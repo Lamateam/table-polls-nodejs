@@ -8,18 +8,21 @@
       .x_content
         br
         form.form-horizontal.form-label-left(name="AddPollForm")
+          div(ng-repeat="question in AddPollController.data.questions track by $index")
+            .form-group
+              label.col-md-3.col-sm-3.col-xs-12 Вопрос
+              .col-md-9.col-sm-9.col-xs-12
+                input.form-control(type="text", placeholder="Введите вопрос опроса", ng-model="AddPollController.data.questions[$index]", required)
+            .form-group
+              label.col-md-3.col-sm-3.col-xs-12 Варианты ответа
+              .col-md-9.col-sm-9.col-xs-12
+                for answer, i in answers
+                  .checkbox
+                    label
+                      input(type="checkbox", ng-model="AddPollController.data.answers[$index][" + i + "]", ng-true-value=i+"" ng-false-value="undefined")
+                      | #{answer}
           .form-group
-            label.col-md-3.col-sm-3.col-xs-12 Вопрос
-            .col-md-9.col-sm-9.col-xs-12
-              input.form-control(type="text", placeholder="Введите вопрос опроса", ng-model="AddPollController.data.question", required)
-          .form-group
-            label.col-md-3.col-sm-3.col-xs-12 Варианты ответа
-            .col-md-9.col-sm-9.col-xs-12
-              for answer, i in answers
-                .checkbox
-                  label
-                    input(type="checkbox", ng-model="AddPollController.data.answers[" + i + "]", ng-true-value=i+"" ng-false-value="undefined")
-                    | #{answer}
+            .btn.btn-danger.col-md-3.col-sm-3.col-xs-12.col-md-offset-7.col-sm-offset-7(ng-click="AddPollController.addNewQuestion()") Добавить вопрос
           .form-group
             label.col-md-3.col-sm-3.col-xs-12 Текст при завершении отпроса
             .col-md-9.col-sm-9.col-xs-12

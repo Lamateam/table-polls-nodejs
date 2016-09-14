@@ -5,9 +5,9 @@ class TabletsSchema extends AbstractSchema
   initTable: (table, callback)->
     table.boolean("is_active").default false
     table.boolean("is_online").default false
-    table.string("link").collate "utf8"
-    table.string("name").collate "utf8"
-    table.string("owner").collate "utf8"
+    table.string("link").collate "utf8_general_ci"
+    table.string("name").collate "utf8_general_ci"
+    table.string("owner").collate "utf8_general_ci"
 
     callback()
   link: (link, callback)->

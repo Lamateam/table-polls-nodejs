@@ -1,4 +1,25 @@
 exports.init = (app)->
+  createPoll = (data, callback, next=null)->
+    question = data.questions.pop()
+    answers  = data.answers.pop().join ', '
+
+    app.get('connector').polls().create {
+      question: question
+      answers: answers
+      success_text: data.success_text
+      owner: data.owner
+      start_date: data.start_date
+      end_date: data.end_date
+      next: next
+      tablets: data.tablets
+    }, (err, poll_id)->
+      if err isnt null
+        callback err
+      else if data.questions.length isnt 0
+        createPoll data, callback, poll_id
+      else
+        callback null
+        
   app.get '/api/v1/polls', (req, res, next)->
     if req.query.tablet_link is undefined
       app.get('connector').polls().list { owner: req.session.user.login }, (err, polls)->
@@ -15,13 +36,12 @@ exports.init = (app)->
 
   app.post "/api/v1/polls", (req, res, next)->
     req.body.owner   = req.session.user.login
-    req.body.answers = req.body.answers.join ', '
-
-    app.get('connector').polls().create req.body, (err, poll)->
+    
+    createPoll req.body, (err)->
       if err isnt null
         res.status(400).send { message: err }
       else
-        res.send { }
+        res.send req.body
 
   app.put "/api/v1/polls", (req, res, next)->
     req.body.owner = req.session.user.login

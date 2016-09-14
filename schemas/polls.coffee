@@ -4,11 +4,12 @@ moment         = require 'moment'
 class PollsSchema extends AbstractSchema
   name: "polls"
   initTable: (table, callback)->
-    table.string("question").collate "utf8"
-    table.string("success_text").collate "utf8"
-    table.string("answers").collate "utf8"
-    table.string("owner").collate "utf8"
+    table.string("question").collate "utf8_general_ci"
+    table.string("success_text").collate "utf8_general_ci"
+    table.string("answers").collate "utf8_general_ci"
+    table.string("owner").collate "utf8_general_ci"
     table.boolean('is_active').default true
+    table.integer 'next'
     table.timestamp 'start_date'
     table.timestamp 'end_date'
 
@@ -32,6 +33,7 @@ class PollsSchema extends AbstractSchema
             end_date: new Date data.end_date
             created_at: new Date()
             updated_at: new Date()
+            next: data.next
           .then (ids)=>
             for tablet in data.tablets
               @knex('tabletpolls')
@@ -46,7 +48,7 @@ class PollsSchema extends AbstractSchema
                   console.log id
                 .catch (err)->
                   console.log err
-            callback null
+            callback null, ids[0]
           .catch (err)->
             callback err
   getActual: (link, callback)->
