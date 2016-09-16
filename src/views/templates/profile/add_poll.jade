@@ -1,4 +1,4 @@
-- var answers = [ "Отлично", "Сойдёт", "Не очень", "Ужасно" ]
+- var answers = [ { url: '/static/images/happy.png', text: 'Отлично' },  { url: '/static/images/surprised.png', text: 'Сойдет' }, { url: '/static/images/confused.png', text: 'Не очень' }, { url: '/static/images/sad.png', text: 'Ужасно' } ]
 .row
   .col-md-12.col-sm-12.col-xs-12
     .x_panel
@@ -12,15 +12,22 @@
             .form-group
               label.col-md-3.col-sm-3.col-xs-12 Вопрос
               .col-md-9.col-sm-9.col-xs-12
-                input.form-control(type="text", placeholder="Введите вопрос опроса", ng-model="AddPollController.data.questions[$index]", required)
+                input.form-control(type="text", placeholder="Введите вопрос опроса", ng-model="question.text", required)
             .form-group
               label.col-md-3.col-sm-3.col-xs-12 Варианты ответа
               .col-md-9.col-sm-9.col-xs-12
                 for answer, i in answers
                   .checkbox
                     label
-                      input(type="checkbox", ng-model="AddPollController.data.answers[$index][" + i + "]", ng-true-value=i+"" ng-false-value="undefined")
-                      | #{answer}
+                      input(type="checkbox", ng-model="question.answers[" + i + "]", ng-true-value=i+"" ng-false-value="undefined")
+                      | #{answer.text}
+            .form-group
+              .btn.btn-warning.col-md-3.col-sm-3.col-xs-12.col-md-offset-7.col-sm-offset-7(ng-click="AddPollController.addNewAnswer(question)") Добавить ответ
+            .form-group(ng-repeat="custom_answer in question.custom_answers track by $index")
+              input.form-control(ng-model="custom_answer.text", placeholder="Текст ответа")
+              select.form-control(ng-model="custom_answer.url")
+                for answer, i in answers
+                  option(value=answer.url)= answer.text
           .form-group
             .btn.btn-danger.col-md-3.col-sm-3.col-xs-12.col-md-offset-7.col-sm-offset-7(ng-click="AddPollController.addNewQuestion()") Добавить вопрос
           .form-group

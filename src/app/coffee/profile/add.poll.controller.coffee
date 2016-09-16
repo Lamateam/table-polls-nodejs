@@ -3,7 +3,7 @@ define [ 'app', 'moment' ], (moment)->
 
 class AddPollController
   constructor: (@TabletService, @PollsService, @location)->
-    @data    = { questions: [ '' ], answers: [ [ ] ], success_text: '', tablets: [ ] }
+    @data    = { questions: [ { text: '', custom_answers: [], answers: [ ] } ], success_text: '', tablets: [ ] }
     @tablets = [ ]
     @TabletService
       .list()
@@ -11,15 +11,18 @@ class AddPollController
         if res.message is undefined
           @tablets = res.tablets
   addNewQuestion: ->
-    @data.questions.push ''
-    @data.answers.push [ ]
+    @data.questions.push { text: '', custom_answers: [], answers: [ ] }
     console.log @data
+  addNewAnswer: (question)->
+    question.custom_answers.push({ text: '', url: '/static/images/happy.png' })
   create: (form)->
     require [ 'moment' ], (moment)=>
       data = angular.copy @data
 
-      for answers in data.answers
-        answers    = answers.filter (el)-> el isnt undefined
+      for question in data.questions
+        question.answers = question.answers.filter (el)-> el isnt undefined
+        for custom_answer in question.custom_answers
+          question.answers.push(JSON.stringify(custom_answer)) if custom_answer.text
 
       data.tablets    = data.tablets.filter (el)-> el isnt undefined
       data.start_date = moment(data.start_date, 'DD.MM.YYYY').toDate()

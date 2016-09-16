@@ -1,10 +1,10 @@
 exports.init = (app)->
   createPoll = (data, callback, next=null)->
     question = data.questions.pop()
-    answers  = data.answers.pop().join ', '
+    answers  = question.answers.join ', '
 
     app.get('connector').polls().create {
-      question: question
+      question: question.text
       answers: answers
       success_text: data.success_text
       owner: data.owner
