@@ -9,6 +9,28 @@ class PollsController
       .then (res)=>
         if res.message is undefined
           @polls = res.polls
+  getChain: (polls, poll)->
+    parent = @findParent polls, poll.id
+    while parent isnt null
+      # Не показываем poll - он потомок в цепочке
+      poll.inChain    = true
+      # Пишем потомка в его родителя
+      parent.child    = poll
+      # Ищем родителя текущего родителя
+      poll            = parent 
+      parent          = @findParent polls, poll.id
+    return poll 
+  findParent: (polls, children_id)->
+    for poll in polls 
+      if poll.next is children_id
+        return poll
+    return null
+  getAllChidren: (poll)->
+    res = [ ]
+    while poll.child 
+      res.push poll.child 
+      poll = poll.child
+    res
   isSelected: (poll)->
     moment = require 'moment'
     now = moment()

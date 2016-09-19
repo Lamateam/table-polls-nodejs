@@ -24,10 +24,14 @@
             .form-group
               .btn.btn-warning.col-md-3.col-sm-3.col-xs-12.col-md-offset-7.col-sm-offset-7(ng-click="AddPollController.addNewAnswer(question)") Добавить ответ
             .form-group(ng-repeat="custom_answer in question.custom_answers track by $index")
-              input.form-control(ng-model="custom_answer.text", placeholder="Текст ответа")
-              select.form-control(ng-model="custom_answer.url")
-                for answer, i in answers
-                  option(value=answer.url)= answer.text
+              label.col-md-3.col-sm-3.col-xs-12 Текст ответа
+              .col-md-9.col-sm-9.col-xs-12
+                input.form-control(ng-model="custom_answer.text", placeholder="Текст ответа")
+              label.col-md-3.col-sm-3.col-xs-12 Картинка
+              .col-md-9.col-sm-9.col-xs-12
+                select.form-control(ng-model="custom_answer.url")
+                  for answer, i in answers
+                    option(value=answer.url)= answer.text
           .form-group
             .btn.btn-danger.col-md-3.col-sm-3.col-xs-12.col-md-offset-7.col-sm-offset-7(ng-click="AddPollController.addNewQuestion()") Добавить вопрос
           .form-group

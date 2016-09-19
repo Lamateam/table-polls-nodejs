@@ -37,13 +37,17 @@ class EditPollController
   edit: (form)->
     require [ 'moment' ], (moment)=>
       data = angular.copy @data
-      data.answers    = data.answers.filter (el)-> el isnt undefined
+
+      for question in data.questions
+        question.answers = question.answers.filter (el)-> el isnt undefined
+        for custom_answer in question.custom_answers
+          question.answers.push(JSON.stringify(custom_answer)) if custom_answer.text
+
       data.tablets    = data.tablets.filter (el)-> el isnt undefined
       data.start_date = moment(data.start_date, 'DD.MM.YYYY').toDate()
       data.end_date   = moment(data.end_date, 'DD.MM.YYYY').toDate()
-      console.log data, form
+
       if (data.question.length > 0) && (data.answers.length > 1) && (data.tablets.length isnt 0)
-        console.log data
         @PollsService
           .save data
           .then (res)=>

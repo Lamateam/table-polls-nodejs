@@ -23,6 +23,9 @@ exports.init = (app)->
           for poll in polls
             poll.answers = poll.answers.split ', '
 
+            for answer, i in poll.answers 
+              poll.answers[i] = JSON.parse(answer) if answer.length > 2
+
           console.log 'here recieve poll: ', polls
           res.send { data: polls }
 
