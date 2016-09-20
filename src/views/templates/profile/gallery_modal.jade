@@ -1,0 +1,7 @@
+.row
+  p Выберите картинку из галереи
+
+  .col-md-55(ng-repeat="picture in $ctrl.pictures")
+    .thumbnail
+      .image.view.view-first
+        img(style="width: 100%; display: block;", ng-src="{[ picture.url ]}", alt="image", ng-click="$ctrl.select(picture)")

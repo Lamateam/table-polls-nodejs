@@ -5,9 +5,11 @@ define [
   'angular-resource'
   "angular-validation-match"
   'ng-dialog'
+  'angular-file-upload'
   # Компоненты модуля
   'profile/home.controller'
   'profile/top.controller'
+  'profile/pictures.controller'
   'profile/add.user.controller'
   'profile/add.tablet.controller'
   'profile/add.group.controller'
@@ -30,12 +32,13 @@ define [
   'common/services/polls.service'
   'common/services/answers.service'
   'common/services/groups.service'
+  'common/services/pictures.service'
   'common/controllers/loading'
   'common/filters/formatDate'
 ], ->
   class ProfileApp
     constructor: ()->
-      for dependency in [ 'ngRoute', 'ngResource', 'ngDialog', 'ui.bootstrap', 'validation.match' ]
+      for dependency in [ 'ngRoute', 'ngResource', 'ngDialog', 'ui.bootstrap', 'validation.match', 'angularFileUpload' ]
         angular.module('app').requires.push(dependency);
       
       angular.module('app')

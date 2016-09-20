@@ -1,8 +1,8 @@
 define [ 'app', 'moment' ], (moment)->
-  angular.module('app').controller 'AddPollController', [ 'TabletService', 'PollsService', 'GroupsService', '$location', AddPollController ]
+  angular.module('app').controller 'AddPollController', [ 'ModalService', 'TabletService', 'PollsService', 'GroupsService', 'FileUploader', '$location', AddPollController ]
 
 class AddPollController
-  constructor: (@TabletService, @PollsService, @GroupsService, @location)->
+  constructor: (@ModalService, @TabletService, @PollsService, @GroupsService, @FileUploader, @location)->
     @data    = 
       questions: [ { text: '', custom_answers: [], answers: [ ] } ]
       success_text: ''
@@ -25,7 +25,22 @@ class AddPollController
     @data.questions.push { text: '', custom_answers: [], answers: [ ] }
     console.log @data
   addNewAnswer: (question)->
-    question.custom_answers.push({ text: '', url: '/static/images/happy.png' })
+    question.custom_answers.push({ text: '', url: '' })
+  getUploader: (custom_answer)->
+    uploader = new @FileUploader
+      url: '/api/v1/pictures'
+    uploader.onAfterAddingFile = (item)->
+      item.upload()
+    uploader.onSuccessItem = (item, res)->
+      console.log res 
+      custom_answer.url = res.picture
+    uploader
+  openGallery: (custom_answer)->
+    @ModalService.open
+      template: '/templates/gallery_modal.html'
+      data: 
+        custom_answer: custom_answer
+      controller: 'PicturesController'
   create: (form)->
     require [ 'moment' ], (moment)=>
       data = angular.copy @data

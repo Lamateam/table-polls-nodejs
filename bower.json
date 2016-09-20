@@ -33,6 +33,8 @@
     "angular-bootstrap": "^2.1.3",
     "moment": "^2.14.1",
     "moment-range": "^2.2.0",
-    "chart.js": "npm:chart.js#^2.2.2"
+    "chart.js": "npm:chart.js#^2.2.2",
+    "blueimp-file-upload": "^9.12.5",
+    "angular-file-upload": "^2.3.4"
   }
 }

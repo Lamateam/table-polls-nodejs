@@ -12,7 +12,7 @@ module.exports = (grunt) ->
         command: "coffee server.coffee"
     clean: 
       tmp: [ "tmp" ]
-      dist: [ "dist" ]
+      dist: [ "dist/**/*.*", "!dist/uploaded_images/**/*.*" ]
     copy:
       bower: 
         files: [

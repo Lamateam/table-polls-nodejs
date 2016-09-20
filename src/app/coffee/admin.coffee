@@ -9,6 +9,7 @@ require.config
     "ng-dialog": "../bower/ng-dialog/js/ngDialog.min"
     "jquery": "../bower/jquery/dist/jquery.min"
     "jquery-ui": "../bower/jquery-ui/jquery-ui.min"
+    "angular-file-upload": "../bower/angular-file-upload/dist/angular-file-upload"
     "sweetalert": "../bower/sweetalert/dist/sweetalert.min"
     "bootstrap": "../bower/bootstrap/dist/js/bootstrap.min"
     "chart": "../bower/chart.js/dist/Chart.min"
@@ -30,6 +31,8 @@ require.config
       deps: [ "bootstrap", "jquery" ]
     "angular-validation-match":
       deps: [ "angular" ]
+    "angular-file-upload":
+      deps: [ 'angular' ]
     
 require [ window.currentPage + "/app" ], (App)->
   new App()
