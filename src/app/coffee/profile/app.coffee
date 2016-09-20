@@ -10,6 +10,7 @@ define [
   'profile/top.controller'
   'profile/add.user.controller'
   'profile/add.tablet.controller'
+  'profile/add.group.controller'
   'profile/add.poll.controller'
   'profile/edit.poll.controller'
   'profile/polls.controller'
@@ -28,6 +29,7 @@ define [
   'common/services/tablet.service'
   'common/services/polls.service'
   'common/services/answers.service'
+  'common/services/groups.service'
   'common/controllers/loading'
   'common/filters/formatDate'
 ], ->
@@ -42,6 +44,7 @@ define [
             .when '/home', { templateUrl: '/templates/home.html', controller: 'HomeController', controllerAs: 'HomeController' }
             .when '/add_user', { templateUrl: '/templates/add_user.html', controller: 'AddUserController', controllerAs: 'AddUserController' }
             .when '/add_tablet', { templateUrl: '/templates/add_tablet.html', controller: 'AddTabletController', controllerAs: 'AddTabletController' }
+            .when '/add_group', { templateUrl: '/templates/add_group.html', controller: 'AddGroupController', controllerAs: 'AddGroupController' }
             .when '/add_poll', { templateUrl: '/templates/add_poll.html', controller: 'AddPollController', controllerAs: 'AddPollController' }
             .when '/polls', { templateUrl: '/templates/polls.html', controller: 'PollsController', controllerAs: 'PollsController' }
             .when '/tablets', { templateUrl: '/templates/tablets.html', controller: 'TabletsController', controllerAs: 'TabletsController' }

@@ -1,15 +1,26 @@
 define [ 'app', 'moment' ], (moment)->
-  angular.module('app').controller 'AddPollController', [ 'TabletService', 'PollsService', '$location', AddPollController ]
+  angular.module('app').controller 'AddPollController', [ 'TabletService', 'PollsService', 'GroupsService', '$location', AddPollController ]
 
 class AddPollController
-  constructor: (@TabletService, @PollsService, @location)->
-    @data    = { questions: [ { text: '', custom_answers: [], answers: [ ] } ], success_text: '', tablets: [ ] }
+  constructor: (@TabletService, @PollsService, @GroupsService, @location)->
+    @data    = 
+      questions: [ { text: '', custom_answers: [], answers: [ ] } ]
+      success_text: ''
+      tablets: [ ]
+      groups: [ ] 
     @tablets = [ ]
+    @groups  = [ ]
     @TabletService
       .list()
       .then (res)=>
         if res.message is undefined
           @tablets = res.tablets
+
+          @GroupsService
+            .list()
+            .then (res)=>
+              if res.message is undefined
+                @groups = res.groups
   addNewQuestion: ->
     @data.questions.push { text: '', custom_answers: [], answers: [ ] }
     console.log @data
@@ -25,8 +36,14 @@ class AddPollController
           question.answers.push(JSON.stringify(custom_answer)) if custom_answer.text
 
       data.tablets    = data.tablets.filter (el)-> el isnt undefined
+      data.groups     = data.groups.filter (el)-> el isnt undefined
       data.start_date = moment(data.start_date, 'DD.MM.YYYY').toDate()
       data.end_date   = moment(data.end_date, 'DD.MM.YYYY').toDate()
+
+      for group in data.groups 
+        for link in group 
+          link = parseInt link, 10
+          data.tablets.push link if data.tablets.indexOf(link) is -1
       
       if data.tablets.length isnt 0
         console.log data

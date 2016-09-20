@@ -74,6 +74,13 @@ class PollsSchema extends AbstractSchema
       .catch (err)->
         console.log 'error: ', err
         callback err
+    @knex('tablets')
+      .where { link: link }
+      .update { last_active: new Date() }
+      .then ->
+        a = 1
+      .catch (err)->
+        console.log err
   listByTablet: (data, callback)->
     @knex
       .join 'polls', 'tabletpolls.poll_id', '=', 'polls.id'

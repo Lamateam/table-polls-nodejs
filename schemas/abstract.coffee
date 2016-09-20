@@ -27,8 +27,8 @@ class AbstractSchema
     data.created_at = new Date()
     data.updated_at = new Date()
     @knex(@name).insert(data)
-      .then (err)->
-        callback null, data
+      .then (ids)->
+        callback null, ids
       .catch (err)->
         callback err, null
         console.error "Error in " + @name + " schema! Method 'create':\n", err

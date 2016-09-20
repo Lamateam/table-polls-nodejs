@@ -1,4 +1,4 @@
-define [ 'app' ], ->
+define [ 'app', 'moment' ], ->
   angular.module('app').controller 'TabletsController', [ 'TabletService', 'PollsService', 'ModalService', TabletsController ]
 
 class TabletsController
@@ -9,6 +9,9 @@ class TabletsController
       .then (res)=>
         if res.message is undefined
           @tablets = res.tablets
+  timeFromNow: (ts)->
+    moment = require 'moment'
+    moment().valueOf() - moment(ts).valueOf()
   loadPolls: (tablet_link)->
     @PollsService
       .list {tablet_link: tablet_link}

@@ -53,6 +53,13 @@
                 label
                   input(type="checkbox", ng-model="AddPollController.data.tablets[$index]", ng-true-value="{[ tablet.link ]}" ng-false-value="undefined")
                   | {[ tablet.name ]}
+          .form-group
+            label.col-md-3.col-sm-3.col-xs-12 Группы
+            .col-md-9.col-sm-9.col-xs-12
+              .checkbox(ng-repeat="group in AddPollController.groups")
+                label
+                  input(type="checkbox", ng-model="AddPollController.data.groups[$index]", ng-true-value="{[ group.tablets ]}" ng-false-value="undefined")
+                  | {[ group.name ]}
 
           .form-group
             .col-md-6.col-sm-6.col-xs-12.col-md-offset-3.btn.btn-success(ng-click="AddPollController.create(AddPollForm)") Добавить опрос

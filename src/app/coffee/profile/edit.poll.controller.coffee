@@ -5,18 +5,26 @@ class EditPollController
   constructor: (@scope, @TabletService, @PollsService, @ModalService, @route)->
     ngDialogData = @scope.ngDialogData
     poll         = ngDialogData.poll
+    data         = { questions: [  ], success_text: poll.success_text, tablets: [ ], start_date: poll.start_date, end_date: poll.end_date }
 
-    answers = [ ]
-    i       = 0
-    for i in [0..3]
-      answers.push if poll.answers.indexOf(i+'') is -1 then undefined else i
-    poll.answers = answers
+    console.log poll
 
-    @data    = poll
+    while poll
+      question = { text: poll.question, custom_answers: [ ], answers: [ ], id: poll.id }
+      poll.answers = poll.answers.split ', '
+      for i in [0..3]
+        question.answers.push if poll.answers.indexOf(i+'') is -1 then undefined else i
+      for answer in poll.answers 
+        question.custom_answers.push JSON.parse(answer) if answer.length > 2
+      data.questions.push question
+      poll = poll.child
+
+    console.log data
+
+    @data    = data
     @data.tablets = [ ]
     @tablets = [ ]
   loadTablets: ->
-    console.log 'here'
     @TabletService
       .list()
       .then (res)=>
@@ -47,7 +55,7 @@ class EditPollController
       data.start_date = moment(data.start_date, 'DD.MM.YYYY').toDate()
       data.end_date   = moment(data.end_date, 'DD.MM.YYYY').toDate()
 
-      if (data.question.length > 0) && (data.answers.length > 1) && (data.tablets.length isnt 0)
+      if data.tablets.length isnt 0
         @PollsService
           .save data
           .then (res)=>

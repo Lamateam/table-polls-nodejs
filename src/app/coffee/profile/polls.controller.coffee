@@ -8,6 +8,10 @@ class PollsController
       .list()
       .then (res)=>
         if res.message is undefined
+          arr = [ ]
+          for poll in res.polls
+            if !poll.inChain 
+              @getChain res.polls, poll
           @polls = res.polls
   getChain: (polls, poll)->
     parent = @findParent polls, poll.id
@@ -22,6 +26,7 @@ class PollsController
     return poll 
   findParent: (polls, children_id)->
     for poll in polls 
+      console.log poll.next, children_id, poll.next is children_id
       if poll.next is children_id
         return poll
     return null
@@ -47,7 +52,7 @@ class PollsController
 
       poll.start_date = moment(poll.start_date).format 'DD.MM.YYYY'
       poll.end_date   = moment(poll.end_date).format 'DD.MM.YYYY'
-      poll.answers    = poll.answers.split ', '
+      # poll.answers    = poll.answers.split ', '
 
       @TabletService
         .list { poll_id: poll.id }

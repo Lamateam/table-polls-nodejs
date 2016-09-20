@@ -1,3 +1,5 @@
+async = require 'async'
+
 exports.init = (app)->
   createPoll = (data, callback, next=null)->
     question = data.questions.pop()
@@ -44,12 +46,22 @@ exports.init = (app)->
         res.send req.body
 
   app.put "/api/v1/polls", (req, res, next)->
-    req.body.owner = req.session.user.login
-    req.body.answers = req.body.answers.join ', ' if typeof req.body.answers.join is 'function'
+    owner = req.session.user.login
+    data  = req.body
+    async.eachSeries data.questions, (question, callback)->
+      answers = question.answers.join ', ' if typeof question.answers.join is 'function'
 
-    app.get('connector').polls().update req.body, (err, poll)->
-      console.log err
-      if err isnt null
-        res.status(400).send { message: err }
-      else
-        res.send req.body
+      app.get('connector').polls().update {
+        question: question.text
+        answers: answers
+        success_text: data.success_text
+        owner: owner
+        start_date: data.start_date
+        end_date: data.end_date
+        id: question.id
+        tablets: data.tablets        
+      }, (err, poll)->
+        console.log err if err
+        callback()
+    , ->
+      res.sendStatus 200

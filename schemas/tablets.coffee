@@ -8,6 +8,7 @@ class TabletsSchema extends AbstractSchema
     table.string("link").collate "utf8_general_ci"
     table.string("name").collate "utf8_general_ci"
     table.string("owner").collate "utf8_general_ci"
+    table.timestamp('last_active').default null
 
     callback()
   link: (link, callback)->
