@@ -13,7 +13,7 @@
               label.col-md-3.col-sm-3.col-xs-12 Вопрос
               .col-md-9.col-sm-9.col-xs-12
                 input.form-control(type="text", placeholder="Введите вопрос опроса", ng-model="question.text", required)
-            .form-group
+            .form-group(ng-if="question.custom_answers.length === 0")
               label.col-md-3.col-sm-3.col-xs-12 Варианты ответа
               .col-md-9.col-sm-9.col-xs-12
                 for answer, i in answers
@@ -21,8 +21,6 @@
                     label
                       input(type="checkbox", ng-model="question.answers[" + i + "]", ng-true-value=i+"" ng-false-value="undefined")
                       | #{answer.text}
-            .form-group
-              .btn.btn-warning.col-md-3.col-sm-3.col-xs-12.col-md-offset-7.col-sm-offset-7(ng-click="AddPollController.addNewAnswer(question)") Добавить ответ
             .form-group(ng-repeat="custom_answer in question.custom_answers track by $index")
               label.col-md-3.col-sm-3.col-xs-12 Текст ответа
               .col-md-9.col-sm-9.col-xs-12
@@ -33,6 +31,8 @@
                 .btn.btn-warning(ng-click="AddPollController.openGallery(custom_answer)") Выбрать из галереи
               .col-md-4.col-sm-4.col-xs-12(ng-if="custom_answer.url")
                 img(style="width: 100%; height: auto;", ng-src="{[ custom_answer.url ]}")
+          .form-group
+            .btn.btn-warning.col-md-3.col-sm-3.col-xs-12.col-md-offset-7.col-sm-offset-7(ng-click="AddPollController.addNewAnswer(question)") Добавить ответ
           .form-group
             .btn.btn-danger.col-md-3.col-sm-3.col-xs-12.col-md-offset-7.col-sm-offset-7(ng-click="AddPollController.addNewQuestion()") Добавить вопрос
           .form-group

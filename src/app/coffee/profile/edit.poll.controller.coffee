@@ -1,8 +1,8 @@
 define [ 'app', 'moment' ], (moment)->
-  angular.module('app').controller 'EditPollController', [ '$scope', 'TabletService', 'PollsService', 'ModalService', '$route', EditPollController ]
+  angular.module('app').controller 'EditPollController', [ 'FileUploader', '$scope', 'TabletService', 'PollsService', 'ModalService', '$route', EditPollController ]
 
 class EditPollController
-  constructor: (@scope, @TabletService, @PollsService, @ModalService, @route)->
+  constructor: (@FileUploader, @scope, @TabletService, @PollsService, @ModalService, @route)->
     ngDialogData = @scope.ngDialogData
     poll         = ngDialogData.poll
     data         = { questions: [  ], success_text: poll.success_text, tablets: [ ], start_date: poll.start_date, end_date: poll.end_date }
@@ -42,6 +42,21 @@ class EditPollController
       if element.link is link
         return true
     return false
+  getUploader: (custom_answer)->
+    uploader = new @FileUploader
+      url: '/api/v1/pictures'
+    uploader.onAfterAddingFile = (item)->
+      item.upload()
+    uploader.onSuccessItem = (item, res)->
+      console.log res 
+      custom_answer.url = res.picture
+    uploader
+  openGallery: (custom_answer)->
+    @ModalService.open
+      template: '/templates/gallery_modal.html'
+      data: 
+        custom_answer: custom_answer
+      controller: 'PicturesController'
   edit: (form)->
     require [ 'moment' ], (moment)=>
       data = angular.copy @data

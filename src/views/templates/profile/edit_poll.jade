@@ -13,7 +13,7 @@
               label.col-md-3.col-sm-3.col-xs-12 Вопрос
               .col-md-9.col-sm-9.col-xs-12
                 input.form-control(type="text", placeholder="Введите вопрос опроса", ng-model="question.text", required)
-            .form-group
+            .form-group(ng-if="question.custom_answers.length === 0")
               label.col-md-3.col-sm-3.col-xs-12 Варианты ответа
               .col-md-9.col-sm-9.col-xs-12
                 for answer, i in answers
@@ -25,11 +25,12 @@
               label.col-md-3.col-sm-3.col-xs-12 Текст ответа
               .col-md-9.col-sm-9.col-xs-12
                 input.form-control(ng-model="custom_answer.text", placeholder="Текст ответа")
-              //- label.col-md-3.col-sm-3.col-xs-12 Картинка
-              //- .col-md-9.col-sm-9.col-xs-12
-              //-   select.form-control(ng-model="custom_answer.url")
-              //-     for answer, i in answers
-              //-       option(value=answer.url)= answer.text
+              label.col-md-3.col-sm-3.col-xs-12 Картинка
+              .col-md-5.col-sm-5.col-xs-12
+                input(type="file", nv-file-select, uploader="$ctrl.getUploader(custom_answer)")
+                .btn.btn-warning(ng-click="$ctrl.openGallery(custom_answer)") Выбрать из галереи
+              .col-md-4.col-sm-4.col-xs-12(ng-if="custom_answer.url")
+                img(style="width: 100%; height: auto;", ng-src="{[ custom_answer.url ]}")
           .form-group
             label.col-md-3.col-sm-3.col-xs-12 Текст при завершении отпроса
             .col-md-9.col-sm-9.col-xs-12

@@ -11,5 +11,5 @@ class PicturesController
           @pictures = res.pictures
   select: (picture)->
     @scope.ngDialogData.custom_answer.url = picture.url
-    @ModalService.closeAll()
+    @scope.closeThisDialog()
               
