@@ -45,6 +45,14 @@ exports.init = (app)->
       else
         res.send req.body
 
+  app.post "/api/v1/polls/active", (req, res, next)->
+    app.get('connector').polls().active {
+        is_active: req.body.is_active
+        id: req.body.id
+        owner: req.session.user.login
+      }, (err, poll)->
+        res.sendStatus 200
+
   app.put "/api/v1/polls", (req, res, next)->
     owner = req.session.user.login
     data  = req.body

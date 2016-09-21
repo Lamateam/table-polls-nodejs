@@ -105,6 +105,13 @@ class PollsSchema extends AbstractSchema
             callback err
       .catch (err)->
         callback err
+  active: (data, callback)->
+    @knex('polls')
+      .where { owner: data.owner }
+      .where { id: data.id }
+      .update { is_active: data.is_active }
+      .then ->
+        callback()
   update: (data, callback)->
     if data.groups isnt undefined
       @knex.select('*').from('groups').whereIn('id', data.groups).then (rows)=>
