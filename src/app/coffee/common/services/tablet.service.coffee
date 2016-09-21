@@ -11,6 +11,9 @@ class TabletService
       list: 
         method: 'GET'
         params: { action: '' }
+      group:
+        method: 'POST'
+        params: { action: 'group' }
 
     @activeRequest = null
 
@@ -27,6 +30,9 @@ class TabletService
     
   list: (data={})->
     @sendAction 'list', data
+
+  group: (data)->
+    @sendAction 'group', data
 
   cancellActiveRequest: ->
     @rootScope.$broadcast "loading", false

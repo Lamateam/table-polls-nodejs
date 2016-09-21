@@ -7,18 +7,19 @@ class GroupsSchema extends AbstractSchema
     table.string("owner").collate "utf8_general_ci"
 
     callback()
-  list: (filters, callback)->
-    @knex.select('*').from(@name).where(filters).then (rows)=>
-      ids = [ ]
-      ids.push row.id for row in rows
-      @knex.select('*').from('tabletgroups').whereIn('group_id', ids).then (tablets)->
-        for row in rows
-          row.tablets = [ ]
-          for tablet in tablets
-            row.tablets.push tablet.tablet_link if tablet.group_id is row.id
-        callback null, rows
-    .catch (err)=>
-      callback err, null
-      console.error "Error in " + @name + " schema! Method 'list':\n", err
+  link: (data, callback)->
+    @knex('tabletgroups')
+      .where 'tablet_link', data.tablet_link
+      .del()
+      .then =>
+        if data.group_id isnt undefined
+          data.created_at = new Date()
+          data.updated_at = new Date()
+          @knex('tabletgroups').insert(data)
+            .then (ids)->
+              callback null, ids
+            .catch (err)->
+              callback err, null
+              console.error "Error in " + @name + " schema! Method 'create':\n", err
 
 module.exports = GroupsSchema

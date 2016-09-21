@@ -13,7 +13,7 @@ exports.init = (app)->
       start_date: data.start_date
       end_date: data.end_date
       next: next
-      tablets: data.tablets
+      groups: data.groups
     }, (err, poll_id)->
       if err isnt null
         callback err
@@ -59,7 +59,7 @@ exports.init = (app)->
         start_date: data.start_date
         end_date: data.end_date
         id: question.id
-        tablets: data.tablets        
+        groups: data.groups        
       }, (err, poll)->
         console.log err if err
         callback()

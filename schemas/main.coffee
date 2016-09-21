@@ -8,6 +8,7 @@ TabletPolls   = require './tabletpolls.coffee'
 TabletAnswers = require './tabletanswers.coffee'
 TabletGroups  = require './tabletgroups.coffee'
 Pictures      = require './pictures.coffee'
+GroupPolls    = require './grouppolls.coffee'
 
 class Knex
   constructor: (config)->
@@ -21,6 +22,7 @@ class Knex
       tabletgroups: new TabletGroups @knex 
       groups: new Groups @knex  
       pictures: new Pictures @knex
+      grouppolls: new GroupPolls @knex
   users: ->
     @schemas.users
   tablets: ->
@@ -37,5 +39,7 @@ class Knex
     @schemas.tabletgroups
   pictures: ->
     @schemas.pictures
+  grouppolls: ->
+    @schemas.grouppolls
 
 module.exports = Knex

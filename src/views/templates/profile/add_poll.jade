@@ -31,8 +31,8 @@
                 .btn.btn-warning(ng-click="AddPollController.openGallery(custom_answer)") Выбрать из галереи
               .col-md-4.col-sm-4.col-xs-12(ng-if="custom_answer.url")
                 img(style="width: 100%; height: auto;", ng-src="{[ custom_answer.url ]}")
-          .form-group
-            .btn.btn-warning.col-md-3.col-sm-3.col-xs-12.col-md-offset-7.col-sm-offset-7(ng-click="AddPollController.addNewAnswer(question)") Добавить ответ
+            .form-group
+              .btn.btn-warning.col-md-3.col-sm-3.col-xs-12.col-md-offset-7.col-sm-offset-7(ng-click="AddPollController.addNewAnswer(question)") Добавить ответ
           .form-group
             .btn.btn-danger.col-md-3.col-sm-3.col-xs-12.col-md-offset-7.col-sm-offset-7(ng-click="AddPollController.addNewQuestion()") Добавить вопрос
           .form-group
@@ -48,18 +48,11 @@
             .col-md-9.col-sm-9.col-xs-12
               input.form-control(calendar, type="text", ng-model="AddPollController.data.end_date", date-format="dd.mm.yy", date-format-moment="DD.MM.YYYY", constrain-input="true", ng-pattern="/\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d/", min-date="AddPollController.data.start_date", placeholder="по")
           .form-group
-            label.col-md-3.col-sm-3.col-xs-12 Планшеты
-            .col-md-9.col-sm-9.col-xs-12
-              .checkbox(ng-repeat="tablet in AddPollController.tablets")
-                label
-                  input(type="checkbox", ng-model="AddPollController.data.tablets[$index]", ng-true-value="{[ tablet.link ]}" ng-false-value="undefined")
-                  | {[ tablet.name ]}
-          .form-group
             label.col-md-3.col-sm-3.col-xs-12 Группы
             .col-md-9.col-sm-9.col-xs-12
               .checkbox(ng-repeat="group in AddPollController.groups")
                 label
-                  input(type="checkbox", ng-model="AddPollController.data.groups[$index]", ng-true-value="{[ group.tablets ]}" ng-false-value="undefined")
+                  input(type="checkbox", ng-model="AddPollController.data.groups[$index]", ng-true-value="{[ group.id ]}" ng-false-value="undefined")
                   | {[ group.name ]}
 
           .form-group

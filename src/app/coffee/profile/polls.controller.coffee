@@ -61,5 +61,5 @@ class PollsController
             template: '/templates/edit_poll.html'
             data: 
               poll: poll
-              active_tablets: res.tablets
+              active_groups: res.tablets
             controller: 'EditPollController'

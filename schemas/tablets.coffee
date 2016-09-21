@@ -11,6 +11,20 @@ class TabletsSchema extends AbstractSchema
     table.timestamp('last_active').default null
 
     callback()
+  list: (filters, callback)->
+    @knex.select('*').from(@name).where(filters).then (rows)=>
+      links = [ ]
+      links.push row.link for row in rows
+      @knex.select('*').from('tabletgroups')
+        .whereIn 'tablet_link', links
+        .then (groups)->
+          for tablet in rows 
+            for group in groups
+              tablet.group = { 'id': group.group_id } if tablet.link is group.tablet_link
+          callback null, rows
+    .catch (err)->
+      callback err, null
+      console.error "Error in " + @name + " schema! Method 'list':\n", err
   link: (link, callback)->
     @knex("tablets")
       .where 'link', '=', link
@@ -22,10 +36,10 @@ class TabletsSchema extends AbstractSchema
         callback err, null
   listByPoll: (data, callback)->
     @knex
-      .join 'tablets', 'tabletpolls.tablet_link', '=', 'tablets.link'
-      .select('*').from('tabletpolls')
-      .where 'tabletpolls.poll_id', '=', parseInt(data.poll_id, 10)
-      .where 'tablets.owner', '=', data.owner
+      .join 'groups', 'groups.id', '=', 'grouppolls.group_id'
+      .select('*').from('grouppolls')
+      .where 'grouppolls.poll_id', '=', parseInt(data.poll_id, 10)
+      .where 'groups.owner', '=', data.owner
       .then (rows)->
         callback null, rows
       .catch (err)->

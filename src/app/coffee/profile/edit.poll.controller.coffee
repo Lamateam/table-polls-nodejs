@@ -1,8 +1,8 @@
 define [ 'app', 'moment' ], (moment)->
-  angular.module('app').controller 'EditPollController', [ 'FileUploader', '$scope', 'TabletService', 'PollsService', 'ModalService', '$route', EditPollController ]
+  angular.module('app').controller 'EditPollController', [ 'FileUploader', '$scope', 'GroupsService', 'PollsService', 'ModalService', '$route', EditPollController ]
 
 class EditPollController
-  constructor: (@FileUploader, @scope, @TabletService, @PollsService, @ModalService, @route)->
+  constructor: (@FileUploader, @scope, @GroupsService, @PollsService, @ModalService, @route)->
     ngDialogData = @scope.ngDialogData
     poll         = ngDialogData.poll
     data         = { questions: [  ], success_text: poll.success_text, tablets: [ ], start_date: poll.start_date, end_date: poll.end_date }
@@ -21,22 +21,23 @@ class EditPollController
 
     console.log data
 
-    @data    = data
-    @data.tablets = [ ]
-    @tablets = [ ]
-  loadTablets: ->
-    @TabletService
+    @data        = data
+    @data.groups = [ ]
+    @groups      = [ ]
+    @loadGroups()
+  loadGroups: ->
+    @GroupsService
       .list()
       .then (res)=>
         if res.message is undefined
-          for tablet in res.tablets
+          for group in res.groups
             has = false
-            for a_tablet in @scope.ngDialogData.active_tablets
-              if a_tablet.link is tablet.link
-                @data.tablets.push parseInt(a_tablet.link, 10)
+            for a_group in @scope.ngDialogData.active_groups
+              if a_group.group_id is group.id
+                @data.groups.push parseInt(a_group.id, 10)
                 has = true
-            @data.tablets.push undefined if !has
-          @tablets = res.tablets
+            @data.groups.push undefined if !has
+          @groups = res.groups
   isTabletChecked: (link, hash)->
     for element in hash
       if element.link is link
@@ -66,11 +67,11 @@ class EditPollController
         for custom_answer in question.custom_answers
           question.answers.push(JSON.stringify(custom_answer)) if custom_answer.text
 
-      data.tablets    = data.tablets.filter (el)-> el isnt undefined
+      data.groups    = data.groups.filter (el)-> el isnt undefined
       data.start_date = moment(data.start_date, 'DD.MM.YYYY').toDate()
       data.end_date   = moment(data.end_date, 'DD.MM.YYYY').toDate()
 
-      if data.tablets.length isnt 0
+      if data.groups.length isnt 0
         @PollsService
           .save data
           .then (res)=>

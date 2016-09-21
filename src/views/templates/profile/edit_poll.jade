@@ -43,13 +43,13 @@
             label.col-md-3.col-sm-3.col-xs-12 Дата окончания
             .col-md-9.col-sm-9.col-xs-12
               input.form-control(calendar, type="text", ng-model="$ctrl.data.end_date", date-format="dd.mm.yy", date-format-moment="DD.MM.YYYY", constrain-input="true", ng-pattern="/\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d/", min-date="$ctrl.data.start_date", placeholder="по")
-          .form-group(ng-init="$ctrl.loadTablets()")
-            label.col-md-3.col-sm-3.col-xs-12 Планшеты
+          .form-group
+            label.col-md-3.col-sm-3.col-xs-12 Группы
             .col-md-9.col-sm-9.col-xs-12
-              .checkbox(ng-repeat="tablet in $ctrl.tablets")
+              .checkbox(ng-repeat="group in $ctrl.groups")
                 label
-                  input(type="checkbox", ng-model="$ctrl.data.tablets[$index]", ng-true-value="{[ tablet.link ]}" ng-false-value="undefined")
-                  | {[ tablet.name ]}
+                  input(type="checkbox", ng-model="$ctrl.data.groups[$index]", ng-true-value="{[ group.id ]}" ng-false-value="undefined")
+                  | {[ group.name ]}
 
           .form-group
             .col-md-6.col-sm-6.col-xs-12.col-md-offset-3.btn.btn-success(ng-click="$ctrl.edit(AddPollForm)") Изменить опрос
