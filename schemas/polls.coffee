@@ -97,7 +97,7 @@ class PollsSchema extends AbstractSchema
         @knex
           .join 'polls', 'grouppolls.poll_id', '=', 'polls.id'
           .select('*').from('grouppolls')
-          .where 'grouppolls.group_id', '=', rows[0].id
+          .where 'grouppolls.group_id', '=', rows[0].group_id
           .where 'polls.owner', '=', data.owner
           .then (rows)->
             callback null, rows
