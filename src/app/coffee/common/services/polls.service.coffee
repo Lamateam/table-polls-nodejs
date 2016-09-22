@@ -21,7 +21,6 @@ class PollsService
     @activeRequest = null
 
   sendAction: (action, data={})->
-    @cancellActiveRequest()
     @rootScope.$broadcast "loading", true
     @activeRequest = @tabletResource[action] data
     @activeRequest.$promise.then (res)=>

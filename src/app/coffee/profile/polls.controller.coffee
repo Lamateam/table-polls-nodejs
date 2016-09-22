@@ -41,11 +41,15 @@ class PollsController
     now = moment()
     moment(poll.start_date).isBefore(now) && !moment(poll.end_date).isBefore(now)
   disablePoll: (poll)->
-    poll.is_active = false
-    @PollsService.active { id: poll.id, is_active: false }
+    while poll
+      poll.is_active = false
+      @PollsService.active { id: poll.id, is_active: false }
+      poll = poll.child
   enablePoll: (poll)->
-    poll.is_active = true
-    @PollsService.active { id: poll.id, is_active: true }
+    while poll
+      poll.is_active = true
+      @PollsService.active { id: poll.id, is_active: true }
+      poll = poll.child
   edit: (poll)->
     require [ 'moment' ], (moment)=>
       poll = angular.copy poll 
