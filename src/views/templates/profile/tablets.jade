@@ -17,7 +17,7 @@ table.table(ng-if="TabletsController.tablets != null")
       td
         select(ng-model="tablet.group", ng-options="i.name for i in TabletsController.groups track by i.id" ng-change="TabletsController.changeGroup(tablet)")
           option(value="") Нет группы
-      td(ng-if="tablet.last_active && TabletsController.timeFromNow(tablet.last_active) < 300000") Онлайн
-      td(ng-if="!tablet.last_active || TabletsController.timeFromNow(tablet.last_active) >= 300000") Оффлайн
+      td(ng-if="tablet.is_active && tablet.last_active && TabletsController.timeFromNow(tablet.last_active) < 300000") Онлайн
+      td(ng-if="!tablet.is_active || !tablet.last_active || TabletsController.timeFromNow(tablet.last_active) >= 300000") Оффлайн
       td 
         .btn.btn-default(ng-click="TabletsController.loadPolls(tablet.link)") Опросы
