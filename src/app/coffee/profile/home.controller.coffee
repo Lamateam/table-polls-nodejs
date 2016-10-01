@@ -25,7 +25,7 @@ class LoginController
             if (@data.end_date isnt undefined) and (@data.end_date.length isnt 0)
               incorrect = incorrect || !moment(answer.created_at).isBefore(end_date)
             if !incorrect
-              genderCounter[if answer.person_male is null then 0 else (if answer.person_male then 1 else 0)]++
+              genderCounter[if answer.person_male is null then 0 else (if answer.person_male then 1 else 2)]++
               # answersCounter[answer.answers]++
 
           @data.stat.gender  = {"labels": [ "Не указано", "Мужчины", "Женщины" ], "datasets": [ { "data": genderCounter, "backgroundColor": [ "#455C73", "#9B59B6" ], "hoverBackgroundColor": [ "#34495E", "#B370CF" ] } ] }

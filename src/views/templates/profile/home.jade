@@ -23,10 +23,9 @@ else
         input.form-control(calendar, type="text", ng-model="HomeController.data.end_date", date-format="dd.mm.yy", date-format-moment="DD.MM.YYYY", constrain-input="true", ng-pattern="/\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d/", min-date="HomeController.data.start_date", placeholder="по", ng-change="HomeController.loadStat()")
 
   .row
-    .col-md-4.col-sm-4.col-xs-12
+    .col-md-5.col-sm-5.col-xs-12
       canvas(ng-if="HomeController.data.stat.gender", doughnut='HomeController.data.stat.gender')
-    .col-md-8.col-sm-8.col-xs-12
-      canvas(ng-if="HomeController.data.stat.answers", doughnut='HomeController.data.stat.answers')
+    
 
   if !user.password
     include ../../includes/profile/set_password.jade
