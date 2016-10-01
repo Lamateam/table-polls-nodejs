@@ -34,7 +34,7 @@ class AbstractSchema
         console.error "Error in " + @name + " schema! Method 'create':\n", err
   list: (filters, callback)->
     @knex.select('*').from(@name).where(filters).then (rows)->
-      callback null, rows
+      callback null, if rows is null then [ ] else rows
     .catch (err)->
       callback err, null
       console.error "Error in " + @name + " schema! Method 'list':\n", err

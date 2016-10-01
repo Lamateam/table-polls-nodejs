@@ -1,5 +1,5 @@
 {
-  "port": 3001,
+  "port": 3002,
   "languages": [ "russian", "english" ],
   "jade": {
     "encoding": "utf-8",

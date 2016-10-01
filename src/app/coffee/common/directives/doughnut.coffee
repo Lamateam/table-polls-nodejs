@@ -9,6 +9,7 @@ define [ 'chart', 'app' ], (Chart)->
             $timeout -> 
               element.innerHtml = ''
               new Chart element, { type: 'doughnut', tooltipFillColor: "rgba(51, 51, 51, 0.55)", data: value }
+        , true
         return
     }
      
