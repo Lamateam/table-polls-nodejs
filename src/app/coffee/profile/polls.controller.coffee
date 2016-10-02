@@ -26,7 +26,6 @@ class PollsController
     return poll 
   findParent: (polls, children_id)->
     for poll in polls 
-      console.log poll.next, children_id, poll.next is children_id
       if poll.next is children_id
         return poll
     return null

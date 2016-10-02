@@ -5,7 +5,6 @@ define [ 'chart', 'app' ], (Chart)->
         element = element[0]
         scope.$watch attrs.doughnut, (value)->
           if value
-            console.log value
             $timeout -> 
               element.innerHtml = ''
               new Chart element, { type: 'doughnut', tooltipFillColor: "rgba(51, 51, 51, 0.55)", data: angular.copy(value) }
